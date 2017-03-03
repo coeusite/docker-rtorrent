@@ -11,17 +11,17 @@ WORKDIR /usr/local/src
 RUN build_deps="automake build-essential ca-certificates libc-ares-dev libcppunit-dev libtool"; \
     build_deps="${build_deps} libssl-dev libxml2-dev libncurses5-dev pkg-config subversion wget"; \
     set -x && \
-    apt-get update && apt-get install -q -y --no-install-recommends ${build_deps} && \
-    wget http://curl.haxx.se/download/curl-7.39.0.tar.gz && \
-    tar xzvfp curl-7.39.0.tar.gz && \
-    cd curl-7.39.0 && \
+    apt-get update && apt-get upgrade -y && apt-get install -q -y --no-install-recommends ${build_deps} && \
+    wget http://curl.haxx.se/download/curl-7.53.1.tar.gz && \
+    tar xzvfp curl-7.53.1.tar.gz && \
+    cd curl-7.53.1 && \
     ./configure --enable-ares --enable-tls-srp --enable-gnu-tls --with-zlib --with-ssl && \
     make && \
     make install && \
     cd .. && \
     rm -rf curl-* && \
     ldconfig && \
-    svn --trust-server-cert checkout https://svn.code.sf.net/p/xmlrpc-c/code/stable/ xmlrpc-c && \
+    svn --trust-server-cert --non-interactive checkout https://svn.code.sf.net/p/xmlrpc-c/code/super_stable/ xmlrpc-c && \
     cd xmlrpc-c && \
     ./configure --enable-libxml2-backend --disable-abyss-server --disable-cgi-server && \
     make && \
